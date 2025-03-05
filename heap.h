@@ -2,6 +2,8 @@
 #define HEAP_H
 #include <functional>
 #include <stdexcept>
+#include <vector>
+#include <string>
 
 template <typename T, typename PComparator = std::less<T> >
 class Heap
@@ -61,8 +63,12 @@ public:
 
 private:
   /// Add whatever helper functions and data members you need below
-
-
+  int m_;
+  std::vector<T> data_;
+  PComparator comp_;
+  void heapifyUp(size_t index);
+  void heapifyDown(size_t index);
+  
 
 
 };
@@ -73,42 +79,24 @@ private:
 // We will start top() for you to handle the case of 
 // calling top on an empty heap
 template <typename T, typename PComparator>
-T const & Heap<T,PComparator>::top() const
-{
-  // Here we use exceptions to handle the case of trying
-  // to access the top element of an empty heap
-  if(empty()){
-    // ================================
-    // throw the appropriate exception
-    // ================================
-
-
-  }
-  // If we get here we know the heap has at least 1 item
-  // Add code to return the top element
-
-
-
+T const & Heap<T,PComparator>::top() const {
+  if (empty())
+    throw std::underflow_error("top(): heap is empty");
+  return data_.front();
 }
 
 
 // We will start pop() for you to handle the case of 
 // calling top on an empty heap
 template <typename T, typename PComparator>
-void Heap<T,PComparator>::pop()
-{
-  if(empty()){
-    // ================================
-    // throw the appropriate exception
-    // ================================
-
-
-  }
-
-
-
+void Heap<T,PComparator>::pop() {
+  if (empty())
+    throw std::underflow_error("pop(): heap is empty");
+  data_.front() = data_.back();
+  data_.pop_back();
+  if (!empty())
+    heapifyDown(0);
 }
-
 
 
 #endif

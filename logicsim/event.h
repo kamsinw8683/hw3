@@ -1,7 +1,7 @@
 #ifndef EVENT_H
 #define EVENT_H
 #include "wire.h"
-
+#include "../heap.h"
 struct Event
 {
     uint64_t time;
@@ -10,7 +10,9 @@ struct Event
 };
 
 typedef struct EventLess {
-        //write the operator() required to make this a functor that compares Events by time
+    // Comparison function for creating a min-heap based on event time
+    bool operator()(Event* a, Event* b) const {
+        return a->time > b->time;  // Larger time means lower priority in min-heap
+    }
 } EventLess;
-	
 #endif
