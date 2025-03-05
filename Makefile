@@ -3,8 +3,8 @@ CXXFLAGS := -g -Wall --std=c++11
 VALGRIND := valgrind --tool=memcheck --leak-check=yes
 
 LLREC_OBJS = llrec.o llrec-test.o
-STACK_OBJS = stack.o stack-test.o
-HEAP_OBJS = heap.o heap-test.o
+STACK_OBJS = stack-test.o
+HEAP_OBJS = heap-test.o
 
 # Build all executables.
 all: llrec-test stack-test heap-test
@@ -30,9 +30,6 @@ stack-test: $(STACK_OBJS)
 stack-test.o: stack-test.cpp stack.h
 	$(CXX) $(CXXFLAGS) -c -o $@ stack-test.cpp
 
-stack.o: stack.cpp stack.h
-	$(CXX) $(CXXFLAGS) -c -o $@ stack.cpp
-
 #-----------------------------------------------------
 # heap-test target
 #-----------------------------------------------------
@@ -41,9 +38,6 @@ heap-test: $(HEAP_OBJS)
 
 heap-test.o: heap-test.cpp heap.h
 	$(CXX) $(CXXFLAGS) -c -o $@ heap-test.cpp
-
-heap.o: heap.cpp heap.h
-	$(CXX) $(CXXFLAGS) -c -o $@ heap.cpp
 
 #-----------------------------------------------------
 # Clean up build files
